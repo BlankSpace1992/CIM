@@ -1,6 +1,6 @@
 package com.lrm;
 
-import com.lrm.dao.UserRepository;
+import com.yjh.dao.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
