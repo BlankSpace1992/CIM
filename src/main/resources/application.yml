@@ -1,0 +1,9 @@
+spring:
+  thymeleaf:
+    mode: HTML
+  profiles:
+    active: demo
+  messages:
+    basename: i18n/messages
+
+comment.avatar: /images/favicon.ico
