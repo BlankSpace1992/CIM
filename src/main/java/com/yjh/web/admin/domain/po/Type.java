@@ -20,7 +20,7 @@ public class Type {
     private String name;
 
     @OneToMany(mappedBy = "type")
-    private List<Blog> blogs = new ArrayList<>();
+    private List<OldBlog> blogs = new ArrayList<>();
 
     public Type() {
     }
@@ -41,11 +41,11 @@ public class Type {
         this.name = name;
     }
 
-    public List<Blog> getBlogs() {
+    public List<OldBlog> getBlogs() {
         return blogs;
     }
 
-    public void setBlogs(List<Blog> blogs) {
+    public void setBlogs(List<OldBlog> blogs) {
         this.blogs = blogs;
     }
 

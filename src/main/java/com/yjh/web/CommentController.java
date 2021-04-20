@@ -1,9 +1,7 @@
 package com.yjh.web;
 
-import com.yjh.web.admin.domain.po.Comment;
 import com.yjh.web.admin.domain.po.User;
-import com.yjh.web.admin.service.BlogService;
-import com.yjh.web.admin.service.CommentService;
+import com.yjh.web.blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -24,7 +22,7 @@ public class CommentController {
     private CommentService commentService;
 
     @Autowired
-    private BlogService blogService;
+    private IBlogService blogService;
 
     @Value("${comment.avatar}")
     private String avatar;

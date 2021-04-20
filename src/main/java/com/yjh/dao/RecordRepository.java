@@ -1,6 +1,5 @@
 package com.yjh.dao;
 
-import com.yjh.web.admin.domain.po.Record;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

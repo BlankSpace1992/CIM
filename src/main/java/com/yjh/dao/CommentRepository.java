@@ -1,6 +1,5 @@
 package com.yjh.dao;
 
-import com.yjh.web.admin.domain.po.Comment;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 

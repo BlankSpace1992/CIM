@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjh.web.blog.mapper.BlogMapper">
+    <select id="listBlogs" resultType="com.yjh.web.blog.domain.Blog">
+        select a.id,
+               a.appreciation,
+               a.commentabled,
+               a.content,
+               a.create_time,
+               a.description,
+               a.first_picture,
+               a.flag,
+               a.share_statement,
+               a.recommend,
+               a.published,
+               a.title,
+               a.update_time,
+               a.views,
+               a.type_id,
+               a.user_id,
+               c.name as typeName,
+               d.name as tagName
+        from t_blog a
+                     left join t_blog_tags b on a.id = b.blogs_id
+                     left join t_tag d on b.tags_id = d.id
+                     left join t_type c on a.type_id = c.id
+        <where>
+            a.del_flag = '0'
+            <if test="title != null and title != ''">
+                <bind name="titleTemp" value="'%' + title + '%'"/>
+                and a.title like #{titleTemp,jdbcType=VARCHAR}
+            </if>
+            <if test="typeId != null">
+                and a.type_id = #{typeId,jdbcType=BIGINT}
+            </if>
+            <if test="recommend != null and recommend != ''">
+                and a.recommend = #{recommend,jdbcType=VARCHAR}
+            </if>
+            <if test="query != null and query != ''">
+                <bind name="queryTemp" value="'%' + query + '%'"/>
+                and (a.title like #{queryTemp,jdbcType=VARCHAR} or a.content like #{queryTemp,jdbcType=VARCHAR})
+            </if>
+        </where>
+        order by a.create_time;
+    </select>
+
+    <select id="listBlogsByTagId" resultType="com.yjh.web.blog.domain.Blog">
+        select a.id,
+               a.appreciation,
+               a.commentabled,
+               a.content,
+               a.create_time,
+               a.description,
+               a.first_picture,
+               a.flag,
+               a.share_statement,
+               a.recommend,
+               a.published,
+               a.title,
+               a.update_time,
+               a.views,
+               a.type_id,
+               a.user_id,
+               c.name
+        from t_blog a
+                     left join t_blog_tags b on a.id = b.blogs_id
+                     left join t_type c on a.type_id = c.id
+        where b.tags_id = #{tagsId,jdbcType=BIGINT}
+    </select>
+</mapper>
+

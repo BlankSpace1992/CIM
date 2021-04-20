@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "t_blog")
-public class Blog {
+public class OldBlog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,7 +52,7 @@ public class Blog {
 
     private String description;
 
-    public Blog() {
+    public OldBlog() {
     }
 
     public Long getId() {
@@ -236,7 +236,7 @@ public class Blog {
 
     @Override
     public String toString() {
-        return "Blog{" +
+        return "OldBlog{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", content='" + content + '\'' +

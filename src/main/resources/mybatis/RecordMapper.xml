@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yjh.web.blog.mapper.RecordMapper">
+    <select id="getListRecordsByAddress" resultType="com.yjh.web.blog.domain.Record">
+        select id, address, ip, last_visit_time, total_number_of_visits
+        from t_record
+        where address like concat('%', concat(#{address,jdbcType=VARCHAR}, '%'))
+    </select>
+</mapper>
+

@@ -1,8 +1,8 @@
 package com.yjh.web;
 
 import com.yjh.web.admin.domain.po.Tag;
-import com.yjh.web.admin.service.BlogService;
 import com.yjh.web.admin.service.TagService;
+import com.yjh.web.blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -24,7 +24,7 @@ public class TagShowController {
     private TagService tagService;
 
     @Autowired
-    private BlogService blogService;
+    private IBlogService blogService;
 
     @GetMapping("/tags/{id}")
     public String tags(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
@@ -34,7 +34,7 @@ public class TagShowController {
            id = tags.get(0).getId();
         }
         model.addAttribute("tags", tags);
-        model.addAttribute("page", blogService.listBlog(id,pageable));
+        model.addAttribute("page", blogService.listBlogsByTagId(pageable,id));
         model.addAttribute("activeTagId", id);
         return "tags";
     }

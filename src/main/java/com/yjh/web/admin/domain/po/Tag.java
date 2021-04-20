@@ -17,7 +17,7 @@ public class Tag {
     private String name;
 
     @ManyToMany(mappedBy = "tags")
-    private List<Blog> blogs = new ArrayList<>();
+    private List<OldBlog> blogs = new ArrayList<>();
 
     public Tag() {
     }
@@ -38,11 +38,11 @@ public class Tag {
         this.name = name;
     }
 
-    public List<Blog> getBlogs() {
+    public List<OldBlog> getBlogs() {
         return blogs;
     }
 
-    public void setBlogs(List<Blog> blogs) {
+    public void setBlogs(List<OldBlog> blogs) {
         this.blogs = blogs;
     }
 

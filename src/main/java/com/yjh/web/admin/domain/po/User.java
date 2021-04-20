@@ -27,7 +27,7 @@ public class User {
     private Date updateTime;
 
     @OneToMany(mappedBy = "user")
-    private List<Blog> blogs = new ArrayList<>();
+    private List<OldBlog> blogs = new ArrayList<>();
 
     public User() {
     }
@@ -105,11 +105,11 @@ public class User {
     }
 
 
-    public List<Blog> getBlogs() {
+    public List<OldBlog> getBlogs() {
         return blogs;
     }
 
-    public void setBlogs(List<Blog> blogs) {
+    public void setBlogs(List<OldBlog> blogs) {
         this.blogs = blogs;
     }
 

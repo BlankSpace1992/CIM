@@ -1,8 +1,8 @@
 package com.yjh.web.admin.service.impl;
 
 import com.yjh.dao.UserRepository;
-import com.yjh.web.admin.domain.po.User;
 import com.yjh.util.MD5Utils;
+import com.yjh.web.admin.domain.po.User;
 import com.yjh.web.admin.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

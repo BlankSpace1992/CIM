@@ -1,11 +1,11 @@
 package com.yjh.web.admin.controller;
 
-import com.yjh.web.admin.domain.po.Blog;
+import com.yjh.vo.BlogQuery;
 import com.yjh.web.admin.domain.po.User;
-import com.yjh.web.admin.service.BlogService;
 import com.yjh.web.admin.service.TagService;
 import com.yjh.web.admin.service.TypeService;
-import com.yjh.vo.BlogQuery;
+import com.yjh.web.blog.domain.Blog;
+import com.yjh.web.blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -33,7 +33,7 @@ public class BlogController {
 
 
     @Autowired
-    private BlogService blogService;
+    private IBlogService blogService;
     @Autowired
     private TypeService typeService;
     @Autowired
@@ -43,14 +43,14 @@ public class BlogController {
     public String blogs(@PageableDefault(size = 8, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         BlogQuery blog, Model model) {
         model.addAttribute("types", typeService.listType());
-        model.addAttribute("page", blogService.listBlog(pageable, blog));
+        model.addAttribute("page", blogService.listBlogs(pageable, blog));
         return LIST;
     }
 
     @PostMapping("/blogs/search")
     public String search(@PageableDefault(size = 8, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                          BlogQuery blog, Model model) {
-        model.addAttribute("page", blogService.listBlog(pageable, blog));
+        model.addAttribute("page", blogService.listBlogs(pageable, blog));
         return "admin/blogs :: blogList";
     }
 
@@ -72,7 +72,7 @@ public class BlogController {
     public String editInput(@PathVariable Long id, Model model) {
         setTypeAndTag(model);
         Blog blog = blogService.getBlog(id);
-        blog.init();
+//        blog.init();
         model.addAttribute("blog",blog);
         return INPUT;
     }
@@ -82,19 +82,10 @@ public class BlogController {
     @PostMapping("/blogs")
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
         blog.setUser((User) session.getAttribute("user"));
-        blog.setType(typeService.getType(blog.getType().getId()));
-        blog.setTags(tagService.listTag(blog.getTagIds()));
-        Blog b;
         if (blog.getId() == null) {
-            b =  blogService.saveBlog(blog);
+            blogService.saveBlog(blog);
         } else {
-            b = blogService.updateBlog(blog.getId(), blog);
-        }
-
-        if (b == null ) {
-            attributes.addFlashAttribute("message", "操作失败");
-        } else {
-            attributes.addFlashAttribute("message", "操作成功");
+          blogService.updateBlog(blog);
         }
         return REDIRECT_LIST;
     }

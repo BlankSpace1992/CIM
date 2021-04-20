@@ -1,9 +1,9 @@
 package com.yjh.web;
 
-import com.yjh.web.admin.domain.po.Type;
-import com.yjh.web.admin.service.BlogService;
-import com.yjh.web.admin.service.TypeService;
 import com.yjh.vo.BlogQuery;
+import com.yjh.web.admin.domain.po.Type;
+import com.yjh.web.admin.service.TypeService;
+import com.yjh.web.blog.service.IBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -25,7 +25,7 @@ public class TypeShowController {
     private TypeService typeService;
 
     @Autowired
-    private BlogService blogService;
+    private IBlogService blogService;
 
     @GetMapping("/types/{id}")
     public String types(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
@@ -37,7 +37,7 @@ public class TypeShowController {
         BlogQuery blogQuery = new BlogQuery();
         blogQuery.setTypeId(id);
         model.addAttribute("types", types);
-        model.addAttribute("page", blogService.listBlog(pageable, blogQuery));
+        model.addAttribute("page", blogService.listBlogs(pageable, blogQuery));
         model.addAttribute("activeTypeId", id);
         return "types";
     }
