@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.yjh.NotFoundException;
+import com.yjh.web.blog.domain.Blog;
 import com.yjh.web.blog.domain.Tag;
 import com.yjh.web.blog.mapper.TagMapper;
+import com.yjh.web.blog.service.IBlogService;
 import com.yjh.web.blog.service.ITagService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +22,8 @@ import java.util.List;
 @Service
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagService {
 
-
+    @Autowired
+    private IBlogService blogService;
     @Override
     public void saveTag(Tag tag) {
         // 查询标签名称是否已经存在
@@ -51,7 +55,12 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
 
     @Override
     public List<Tag> listTags() {
-        return this.list();
+        List<Tag> list = this.list();
+        list.forEach(item->{
+            List<Blog> blogs = blogService.listBlogsByTagId(item.getId());
+            item.setBlogs(blogs);
+        });
+        return list;
     }
 
     @Override

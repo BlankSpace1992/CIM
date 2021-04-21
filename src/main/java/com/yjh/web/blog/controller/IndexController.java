@@ -1,5 +1,6 @@
 package com.yjh.web.blog.controller;
 
+import com.yjh.common.base.BaseController;
 import com.yjh.vo.BlogQuery;
 import com.yjh.web.blog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * @date 2021/4/21 15:13
  */
 @Controller
-public class IndexController {
+public class IndexController extends BaseController {
 
     @Autowired
     private IBlogService blogService;

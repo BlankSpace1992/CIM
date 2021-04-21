@@ -48,7 +48,7 @@
                 <h3 class="ui teal header">博客列表</h3>
               </div>
               <div class="right aligned column">
-                共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${page}"></h2> 篇
+                共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.total}"></h2> 篇
               </div>
             </div>
           </div>
@@ -56,7 +56,7 @@
           <!--左侧博客列表-->
           <div class="ui attached  segment">
 
-            <div class="ui padded vertical segment m-padded-tb-large" th:each="blog : ${page.content}">
+            <div class="ui padded vertical segment m-padded-tb-large" th:each="blog : ${page}">
               <div class="ui middle aligned mobile reversed stackable grid" >
                 <div class="eleven wide column">
                   <h3 class="ui header" ><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">?</a></h3>
@@ -73,7 +73,7 @@
                       </div>
                     </div>
                     <div class="right aligned five wide column">
-                      <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}"></a>
+                      <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.typeName}"></a>
                     </div>
                   </div>
                 </div>
@@ -90,7 +90,7 @@
           </div>
 
           <!--左侧底部分页区域-->
-          <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+          <div class="ui bottom attached segment" th:if="${page.pages}>1">
             <div class="ui middle aligned two column grid">
               <div class="column">
                 <a href="#" th:href="@{/(page=${page.number}-1)}"  th:unless="${page.first}" class="ui mini teal basic button">上一页</a>
@@ -122,7 +122,9 @@
               <div class="ui fluid vertical menu" >
                 <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item"  th:each="type : ${types}">
                   <span th:text="${type.name}">学习日志</span>
-                  <div class="ui teal basic left pointing label" th:text="${#arrays.length(type.blogs)}">13</div>
+                  <div class="ui teal basic left pointing label"
+                       th:text="${#arrays.length(type.blogs)}"
+                  >13</div>
                 </a>
 
               </div>

@@ -4,9 +4,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
 import com.yjh.NotFoundException;
+import com.yjh.vo.BlogQuery;
+import com.yjh.web.blog.domain.Blog;
 import com.yjh.web.blog.domain.Type;
 import com.yjh.web.blog.mapper.TypeMapper;
+import com.yjh.web.blog.service.IBlogService;
 import com.yjh.web.blog.service.ITypeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +22,8 @@ import java.util.List;
  */
 @Service
 public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements ITypeService {
+    @Autowired
+    private IBlogService blogService;
 
     @Override
     public void saveType(Type type) {
@@ -50,7 +56,12 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
 
     @Override
     public List<Type> listTypes() {
-        return this.list();
+        List<Type> list = this.list();
+        list.forEach(item -> {
+            List<Blog> blogs = blogService.listBlogs(BlogQuery.builder().typeId(item.getId()).build());
+            item.setBlogs(blogs);
+        });
+        return list;
     }
 
     @Override

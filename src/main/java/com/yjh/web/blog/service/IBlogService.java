@@ -1,6 +1,7 @@
 package com.yjh.web.blog.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.github.pagehelper.Page;
 import com.yjh.vo.BlogQuery;
 import com.yjh.web.blog.domain.Blog;
 import org.springframework.data.domain.Pageable;
@@ -68,7 +69,17 @@ public interface IBlogService extends IService<Blog> {
      * @author yujunhong
      * @date 2021/4/20 11:01
      */
-    List<Blog> listBlogs(Pageable pageable, BlogQuery blog);
+    Page<Blog> listBlogs(Pageable pageable, BlogQuery blog);
+
+    /**
+     * 查询博客列表
+     *
+     * @param blog     搜索条件
+     * @return 博客列表
+     * @author yujunhong
+     * @date 2021/4/20 11:01
+     */
+    List<Blog>listBlogs( BlogQuery blog);
 
     /**
      * 根据标签查询博客列表
@@ -80,6 +91,16 @@ public interface IBlogService extends IService<Blog> {
      * @date 2021/4/20 11:20
      */
     List<Blog> listBlogsByTagId(Pageable pageable, Long tagsId);
+
+    /**
+     * 根据标签查询博客列表
+     *
+     * @param tagsId   标签id
+     * @return 博客列表
+     * @author yujunhong
+     * @date 2021/4/20 11:20
+     */
+    List<Blog> listBlogsByTagId( Long tagsId);
 
     /**
      * 获取最新推荐

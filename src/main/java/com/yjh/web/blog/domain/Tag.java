@@ -2,6 +2,7 @@ package com.yjh.web.blog.domain;
 
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -10,6 +11,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * 标签表
@@ -37,4 +40,12 @@ public class Tag {
     @ApiModelProperty(value = "标签名称")
     @Excel(name = "标签名称")
     private String name;
+
+    /**
+     * 该标签博客数量
+     */
+    @ApiModelProperty(value = "该标签博客数量")
+    @Excel(name = "该标签博客数量")
+    @TableField(exist = false)
+    private List<Blog> blogs;
 }

@@ -1,6 +1,7 @@
 package com.yjh.web.blog.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.yjh.NotFoundException;
 import com.yjh.common.constants.Constants;
@@ -69,15 +70,26 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
     @Override
-    public List<Blog> listBlogs(Pageable pageable, BlogQuery blog) {
-        PageHelper.startPage(pageable.getPageNumber(), pageable.getPageSize());
-        return baseMapper.listBlogs(blog);
+    public Page<Blog> listBlogs(Pageable pageable, BlogQuery blog) {
+        Page<Blog> page = PageHelper.startPage(pageable.getPageNumber(), pageable.getPageSize());
+        List<Blog> blogs = baseMapper.listBlogs(blog);
+        return page;
+    }
+
+    @Override
+    public List<Blog> listBlogs(BlogQuery blog) {
+        return  baseMapper.listBlogs(blog);
     }
 
     @Override
     public List<Blog> listBlogsByTagId(Pageable pageable, Long tagsId) {
         PageHelper.startPage(pageable.getPageNumber(), pageable.getPageSize());
         return baseMapper.listBlogsByTagId(tagsId);
+    }
+
+    @Override
+    public List<Blog> listBlogsByTagId(Long tagsId) {
+        return  baseMapper.listBlogsByTagId(tagsId);
     }
 
     @Override
