@@ -7,6 +7,7 @@ import com.yjh.util.PushWechatMessageUtil;
 import com.yjh.web.blog.domain.Comment;
 import com.yjh.web.blog.mapper.CommentMapper;
 import com.yjh.web.blog.service.ICommentService;
+import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.Random;
  * @author yujunhong
  * @date 2021/4/20 14:34
  */
+@Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements ICommentService {
 
 

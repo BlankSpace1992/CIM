@@ -1,10 +1,7 @@
-package com.yjh.web;
+package com.yjh.web.blog.controller;
 
 import com.yjh.vo.BlogQuery;
-import com.yjh.web.admin.service.TagService;
-import com.yjh.web.admin.service.TypeService;
-import com.yjh.web.admin.service.WebsiteInfoService;
-import com.yjh.web.blog.service.IBlogService;
+import com.yjh.web.blog.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -19,8 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-/**
- * Created by limi on 2017/10/13.
+/** 首页 Controller
+ * @author yujunhong
+ * @date 2021/4/21 15:13
  */
 @Controller
 public class IndexController {
@@ -29,16 +27,16 @@ public class IndexController {
     private IBlogService blogService;
 
     @Autowired
-    private RecordService recordService;
+    private IRecordService recordService;
 
     @Autowired
-    private TypeService typeService;
+    private ITypeService typeService;
 
     @Autowired
-    private TagService tagService;
+    private ITagService tagService;
 
     @Autowired
-    private WebsiteInfoService websiteInfoService;
+    private IWebsiteInfoService websiteInfoService;
 
     @GetMapping("/")
     public String index(@PageableDefault(size = 10, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
@@ -46,8 +44,8 @@ public class IndexController {
                         HttpSession session,
                         HttpServletRequest httpServletRequest) {
         model.addAttribute("page", blogService.listBlogs(pageable, new BlogQuery()));
-        model.addAttribute("types", typeService.listType());
-        model.addAttribute("tags", tagService.listTag());
+        model.addAttribute("types", typeService.listTypes());
+        model.addAttribute("tags", tagService.listTags());
         model.addAttribute("recommendBlogs", blogService.listBlogsByRecommend(20,
                 BlogQuery.builder().recommend("1").build()));
         session.setAttribute("views", websiteInfoService.addOneForViews());

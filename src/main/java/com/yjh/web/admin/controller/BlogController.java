@@ -1,11 +1,11 @@
 package com.yjh.web.admin.controller;
 
 import com.yjh.vo.BlogQuery;
-import com.yjh.web.admin.domain.po.User;
-import com.yjh.web.admin.service.TagService;
-import com.yjh.web.admin.service.TypeService;
 import com.yjh.web.blog.domain.Blog;
+import com.yjh.web.blog.domain.User;
 import com.yjh.web.blog.service.IBlogService;
+import com.yjh.web.blog.service.ITagService;
+import com.yjh.web.blog.service.ITypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -20,9 +20,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * Created by limi on 2017/10/15.
- */
+/** 博客 Controller
+  * @author yujunhong
+  * @date 2021/4/21 15:13
+  */
 @Controller
 @RequestMapping("/admin")
 public class BlogController {
@@ -35,14 +36,14 @@ public class BlogController {
     @Autowired
     private IBlogService blogService;
     @Autowired
-    private TypeService typeService;
+    private ITypeService typeService;
     @Autowired
-    private TagService tagService;
+    private ITagService tagService;
 
     @GetMapping("/blogs")
     public String blogs(@PageableDefault(size = 8, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         BlogQuery blog, Model model) {
-        model.addAttribute("types", typeService.listType());
+        model.addAttribute("types", typeService.listTypes());
         model.addAttribute("page", blogService.listBlogs(pageable, blog));
         return LIST;
     }
@@ -63,8 +64,8 @@ public class BlogController {
     }
 
     private void setTypeAndTag(Model model) {
-        model.addAttribute("types", typeService.listType());
-        model.addAttribute("tags", tagService.listTag());
+        model.addAttribute("types", typeService.listTypes());
+        model.addAttribute("tags", tagService.listTags());
     }
 
 

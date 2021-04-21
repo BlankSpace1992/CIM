@@ -1,10 +1,13 @@
-package com.yjh.web;
+package com.yjh.web.blog.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Created by limi on 2017/10/24.
+ * 关于 Controller
+ *
+ * @author yujunhong
+ * @date 2021/4/21 15:13
  */
 @Controller
 public class AboutShowController {

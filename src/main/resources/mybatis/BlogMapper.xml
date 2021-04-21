@@ -43,7 +43,7 @@
                 and (a.title like #{queryTemp,jdbcType=VARCHAR} or a.content like #{queryTemp,jdbcType=VARCHAR})
             </if>
         </where>
-        order by a.create_time;
+        order by a.create_time
     </select>
 
     <select id="listBlogsByTagId" resultType="com.yjh.web.blog.domain.Blog">

@@ -1,9 +1,9 @@
-package com.yjh.web;
+package com.yjh.web.blog.controller;
 
 import com.yjh.vo.BlogQuery;
-import com.yjh.web.admin.domain.po.Type;
-import com.yjh.web.admin.service.TypeService;
+import com.yjh.web.blog.domain.Type;
 import com.yjh.web.blog.service.IBlogService;
+import com.yjh.web.blog.service.ITypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -15,14 +15,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-/**
- * Created by limi on 2017/10/23.
+/** 分类展示 Controller
+ * @author yujunhong
+ * @date 2021/4/21 15:13
  */
 @Controller
 public class TypeShowController {
 
     @Autowired
-    private TypeService typeService;
+    private ITypeService typeService;
 
     @Autowired
     private IBlogService blogService;
@@ -30,7 +31,7 @@ public class TypeShowController {
     @GetMapping("/types/{id}")
     public String types(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         @PathVariable Long id, Model model) {
-        List<Type> types = typeService.listTypeTop(10000);
+        List<Type> types = typeService.listTypes();
         if (id == -1) {
            id = types.get(0).getId();
         }

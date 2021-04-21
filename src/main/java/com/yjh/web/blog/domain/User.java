@@ -81,4 +81,11 @@ public class User {
     @ApiModelProperty(value = "用户名")
     @Excel(name = "用户名")
     private String username;
+
+    /**
+     * 删除标志
+     */
+    @ApiModelProperty(value = "删除标志")
+    @Excel(name = "删除标志")
+    private String delFlag;
 }

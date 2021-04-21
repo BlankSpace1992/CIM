@@ -1,8 +1,8 @@
 package com.yjh.web.admin.controller;
 
-import com.yjh.web.admin.domain.po.User;
-import com.yjh.web.admin.service.UserService;
-import com.yjh.web.admin.service.WebsiteInfoService;
+import com.yjh.web.blog.domain.User;
+import com.yjh.web.blog.service.IUserService;
+import com.yjh.web.blog.service.IWebsiteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,18 +13,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * Created by limi on 2017/10/15.
+/** 登录 Controller
+ * @author yujunhong
+ * @date 2021/4/21 15:13
  */
 @Controller
 @RequestMapping("/admin")
 public class LoginController {
 
     @Autowired
-    private UserService userService;
+    private IUserService userService;
 
     @Autowired
-    private WebsiteInfoService websiteInfoService;
+    private IWebsiteInfoService websiteInfoService;
 
     @GetMapping
     public String loginPage() {

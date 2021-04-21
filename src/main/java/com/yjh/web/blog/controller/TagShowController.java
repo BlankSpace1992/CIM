@@ -1,8 +1,8 @@
-package com.yjh.web;
+package com.yjh.web.blog.controller;
 
-import com.yjh.web.admin.domain.po.Tag;
-import com.yjh.web.admin.service.TagService;
+import com.yjh.web.blog.domain.Tag;
 import com.yjh.web.blog.service.IBlogService;
+import com.yjh.web.blog.service.ITagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,14 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
-/**
- * Created by limi on 2017/10/23.
+/** 标签展示 Controller
+ * @author yujunhong
+ * @date 2021/4/21 15:13
  */
 @Controller
 public class TagShowController {
 
     @Autowired
-    private TagService tagService;
+    private ITagService tagService;
 
     @Autowired
     private IBlogService blogService;
@@ -29,7 +30,7 @@ public class TagShowController {
     @GetMapping("/tags/{id}")
     public String tags(@PageableDefault(size = 8, sort = {"updateTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         @PathVariable Long id, Model model) {
-        List<Tag> tags = tagService.listTagTop(10000);
+        List<Tag> tags = tagService.listTags();
         if (id == -1) {
            id = tags.get(0).getId();
         }

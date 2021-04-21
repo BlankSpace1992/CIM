@@ -8,6 +8,7 @@ import com.yjh.util.IPUtils;
 import com.yjh.web.blog.domain.Record;
 import com.yjh.web.blog.mapper.RecordMapper;
 import com.yjh.web.blog.service.IRecordService;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
@@ -17,6 +18,7 @@ import java.util.List;
  * @author yujunhong
  * @date 2021/4/20 15:55
  */
+@Service
 public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> implements IRecordService {
     @Override
     public void recording(HttpServletRequest httpServletRequest) {

@@ -1,7 +1,9 @@
-package com.yjh.web;
+package com.yjh.web.blog.controller;
 
-import com.yjh.web.admin.domain.po.User;
+import com.yjh.web.blog.domain.Comment;
+import com.yjh.web.blog.domain.User;
 import com.yjh.web.blog.service.IBlogService;
+import com.yjh.web.blog.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -12,14 +14,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
 
-/**
- * Created by limi on 2017/10/22.
+/** 评论 Controller
+ * @author yujunhong
+ * @date 2021/4/21 15:13
  */
 @Controller
 public class CommentController {
 
     @Autowired
-    private CommentService commentService;
+    private ICommentService commentService;
 
     @Autowired
     private IBlogService blogService;
@@ -41,14 +44,13 @@ public class CommentController {
         User user = (User) session.getAttribute("user");
         if (user != null) {
             comment.setAvatar(user.getAvatar());
-            comment.setAdminComment(true);
+            comment.setAdminComment("1");
         } else {
             comment.setAvatar(avatar);
         }
         commentService.saveComment(comment);
         return "redirect:/comments/" + blogId;
     }
-
 
 
 }

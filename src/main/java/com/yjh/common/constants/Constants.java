@@ -34,8 +34,25 @@ public class Constants {
     public static final String IP_REQUEST_URL_END = "https://www.maitube.com/ip/?ip=";
 
 
+    /**
+     * 网站总的浏览量
+     */
+    public static final String VIEWS = "views";
 
+    /**
+     * 首页图片地址
+     */
+    public static final String ABOUT_IMAGE_URL = "aboutMeImageUrl";
 
+    /**
+     * 标题
+     */
+    public static final String TOP_TITLE = "topTitle";
+
+    /**
+     * 首页内容
+     */
+    public static final String ABOUT_CONTENT = "aboutMeContent";
 
 
 }
