@@ -61,6 +61,17 @@ public interface ITagService extends IService<Tag> {
     List<Tag> listTags();
 
     /**
+     * 获取标签列表详情--不分页
+     *
+     * @param blogId 博客主键id
+     * @return tag列表
+     * @author yujunhong
+     * @date 2021/4/20 17:28
+     */
+    List<Tag> listTags(Long blogId);
+
+
+    /**
      * 更新标签
      *
      * @param tag 标签实体对象

@@ -24,6 +24,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
 
     @Autowired
     private IBlogService blogService;
+
     @Override
     public void saveTag(Tag tag) {
         // 查询标签名称是否已经存在
@@ -56,11 +57,16 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
     @Override
     public List<Tag> listTags() {
         List<Tag> list = this.list();
-        list.forEach(item->{
+        list.forEach(item -> {
             List<Blog> blogs = blogService.listBlogsByTagId(item.getId());
             item.setBlogs(blogs);
         });
         return list;
+    }
+
+    @Override
+    public List<Tag> listTags(Long blogId) {
+        return baseMapper.listTags(blogId);
     }
 
     @Override

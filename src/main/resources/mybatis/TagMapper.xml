@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yjh.web.blog.mapper.TagMapper">
-
+    <select id="listTags" resultType="com.yjh.web.blog.domain.Tag">
+        select  id,name
+        from t_blog_tags a
+                     left join t_tag b on a.tags_id = b.id
+    </select>
 </mapper>
 

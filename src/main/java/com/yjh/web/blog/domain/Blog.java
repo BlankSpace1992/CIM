@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 博客实体对象
@@ -150,5 +151,5 @@ public class Blog {
      */
     @ApiModelProperty(value = "标签名称")
     @TableField(exist = false)
-    private String tagName;
+    private List<Tag> tags;
 }

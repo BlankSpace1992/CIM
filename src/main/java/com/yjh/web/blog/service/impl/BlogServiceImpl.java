@@ -8,9 +8,14 @@ import com.yjh.common.constants.Constants;
 import com.yjh.util.MarkdownUtils;
 import com.yjh.vo.BlogQuery;
 import com.yjh.web.blog.domain.Blog;
+import com.yjh.web.blog.domain.Tag;
+import com.yjh.web.blog.domain.User;
 import com.yjh.web.blog.mapper.BlogMapper;
 import com.yjh.web.blog.service.IBlogService;
+import com.yjh.web.blog.service.ITagService;
+import com.yjh.web.blog.service.IUserService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +30,11 @@ import java.util.Optional;
  */
 @Service
 public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IBlogService {
+    @Autowired
+    private IUserService userService;
+    @Autowired
+    private ITagService tagService;
+
     @Override
     public void saveBlog(Blog blog) {
         blog.setCreateTime(new Date());
@@ -57,6 +67,12 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     public Blog getAndConvert(Long id) {
         // 查询博客信息
         Blog blog = Optional.ofNullable(this.getById(id)).orElseThrow(() -> new NotFoundException("该博客不存在"));
+        // 根据用户id获取用户信息
+        User user = userService.getById(blog.getId());
+        blog.setUser(user);
+        // 获取标签名称
+        List<Tag> tags = tagService.listTags(blog.getId());
+        blog.setTags(tags);
         // 浏览数加1
         blog.setViews(blog.getViews() + 1);
         this.updateById(blog);
@@ -78,7 +94,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Override
     public List<Blog> listBlogs(BlogQuery blog) {
-        return  baseMapper.listBlogs(blog);
+        return baseMapper.listBlogs(blog);
     }
 
     @Override
@@ -89,7 +105,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
 
     @Override
     public List<Blog> listBlogsByTagId(Long tagsId) {
-        return  baseMapper.listBlogsByTagId(tagsId);
+        return baseMapper.listBlogsByTagId(tagsId);
     }
 
     @Override
