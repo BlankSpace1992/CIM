@@ -30,7 +30,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
         // 查询当前分类名称是否存在
         LambdaQueryWrapper<Type> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Type::getName, type.getName());
-        if (this.getOne(wrapper) == null) {
+        if (this.getOne(wrapper) != null) {
             throw new NotFoundException("分类名称已经存在,不允许再添加");
         }
         this.save(type);

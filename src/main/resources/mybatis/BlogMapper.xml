@@ -20,7 +20,10 @@
         <result property="views" column="views"/>
         <result property="typeId" column="type_id"/>
         <result property="userId" column="user_id"/>
-        <result property="typeName" column="typeName"/>
+        <association property="type" javaType="com.yjh.web.blog.domain.Type">
+            <result column="id" property="id"/>
+            <result column="typeName" property="name"/>
+        </association>
         <association property="user" javaType="com.yjh.web.blog.domain.User">
             <result column="nickname" property="nickname"/>
             <result column="avatar" property="avatar"/>
@@ -48,6 +51,7 @@
                a.type_id,
                a.user_id,
                c.name as typeName,
+               c.id,
                d.name as tagName,
                e.nickname,
                e.avatar
@@ -94,6 +98,7 @@
                a.type_id,
                a.user_id,
                c.name as typeName,
+               c.id,
                d.avatar,
                d.nickname,
                f.name,
@@ -105,6 +110,36 @@
                      left join t_blog_tags e on a.id = e.blogs_id
                      left join t_tag f on e.tags_id = f.id
         where b.tags_id = #{tagsId,jdbcType=BIGINT}
+    </select>
+
+    <select id="getBlogById" resultMap="BaseResultMap">
+        select a.id,
+               a.appreciation,
+               a.commentabled,
+               a.content,
+               a.create_time,
+               a.description,
+               a.first_picture,
+               a.flag,
+               a.share_statement,
+               a.recommend,
+               a.published,
+               a.title,
+               a.update_time,
+               a.views,
+               a.type_id,
+               a.user_id,
+               c.name as typeName,
+               c.id,
+               d.name as tagName,
+               e.nickname,
+               e.avatar
+        from t_blog a
+                     left join t_blog_tags b on a.id = b.blogs_id
+                     left join t_tag d on b.tags_id = d.id
+                     left join t_type c on a.type_id = c.id
+                     left join t_user e on a.user_id = e.id
+        where a.id = #{id,jdbcType=BIGINT}
     </select>
 </mapper>
 

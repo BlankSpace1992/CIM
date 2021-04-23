@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -144,7 +145,7 @@ public class Blog {
      */
     @ApiModelProperty(value = "类型名称")
     @TableField(exist = false)
-    private String typeName;
+    private Type type;
 
     /**
      * 标签名称
@@ -152,4 +153,23 @@ public class Blog {
     @ApiModelProperty(value = "标签名称")
     @TableField(exist = false)
     private List<Tag> tags;
+
+    /**
+     * 标签id集合
+     */
+    @ApiModelProperty(value = "标签id集合")
+    @TableField(exist = false)
+    private String tagIds;
+
+    /**
+     * @author yujunhong
+     * @date 2021/4/23 10:54
+     */
+    public void getTagList() {
+        List<String> tagIdsList = new ArrayList<>();
+        this.getTags().forEach(tag -> {
+            tagIdsList.add(String.valueOf(tag.getId()));
+        });
+        this.tagIds = tagIdsList.toString();
+    }
 }

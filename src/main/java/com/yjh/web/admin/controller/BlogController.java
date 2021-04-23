@@ -60,6 +60,8 @@ public class BlogController {
     public String input(Model model) {
         setTypeAndTag(model);
         model.addAttribute("blog", new Blog());
+        model.addAttribute("types", typeService.listTypes());
+        model.addAttribute("tags", tagService.listTags());
         return INPUT;
     }
 
@@ -73,7 +75,8 @@ public class BlogController {
     public String editInput(@PathVariable Long id, Model model) {
         setTypeAndTag(model);
         Blog blog = blogService.getBlog(id);
-//        blog.init();
+        // 获取对应的tag
+        blog.getTagList();
         model.addAttribute("blog",blog);
         return INPUT;
     }

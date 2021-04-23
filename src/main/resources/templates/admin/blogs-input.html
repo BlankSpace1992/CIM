@@ -116,25 +116,46 @@
         <div class="inline fields">
           <div class="field">
             <div class="ui checkbox">
-              <input type="checkbox" id="recommend" name="recommend" checked th:checked="*{recommend}" class="hidden">
+              <input type="checkbox"
+                     id="recommend"
+                     checked
+                     th:checked="*{recommend} eq '1'"
+                     onclick="document.getElementById('recommendInput').value=this.checked?1:0"
+                     class="hidden">
+              <input type="hidden" name="recommend" id="recommendInput" value="0">
               <label for="recommend">推荐</label>
             </div>
           </div>
           <div class="field">
             <div class="ui checkbox">
-              <input type="checkbox" id="shareStatement" name="shareStatement" th:checked="*{shareStatement}" class="hidden">
+              <input type="checkbox"
+                     id="shareStatement"
+                     th:checked="*{shareStatement} eq '1'"
+                     onclick="document.getElementById('shareStatementInput').value=this.checked?1:0"
+                     class="hidden">
+              <input type="hidden" name="shareStatement" id="shareStatementInput" value="0">
               <label for="shareStatement">转载声明</label>
             </div>
           </div>
           <div class="field">
             <div class="ui checkbox">
-              <input type="checkbox" id="appreciation" name="appreciation" th:checked="*{appreciation}" class="hidden">
+              <input type="checkbox"
+                     id="appreciation"
+                     th:checked="*{appreciation} eq '1' "
+                     onclick="document.getElementById('appreciationInput').value=this.checked?1:0"
+                     class="hidden">
+              <input type="hidden" name="appreciation" id="appreciationInput" value="0">
               <label for="appreciation">赞赏</label>
             </div>
           </div>
           <div class="field">
             <div class="ui checkbox">
-              <input type="checkbox" id="commentabled" name="commentabled" th:checked="*{commentabled}" class="hidden">
+              <input type="checkbox"
+                     id="commentabled"
+                     th:checked="*{commentabled} eq '1'"
+                     onclick="document.getElementById('commentabledInput').value=this.checked?1:0"
+                     class="hidden">
+              <input type="hidden" name="commentabled" id="commentabledInput" value="0">
               <label for="commentabled">评论</label>
             </div>
           </div>
@@ -219,13 +240,13 @@
     });
 
     $('#save-btn').click(function () {
-      $('[name="published"]').val(false);
+      $('[name="published"]').val('0');
       $('#blog-form').submit();
     });
 
 
     $('#publish-btn').click(function () {
-      $('[name="published"]').val(true);
+      $('[name="published"]').val('1');
       $('#blog-form').submit();
     });
 
