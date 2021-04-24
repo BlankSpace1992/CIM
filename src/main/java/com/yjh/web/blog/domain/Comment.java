@@ -13,6 +13,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 评论主表
@@ -96,4 +97,12 @@ public class Comment {
     @Excel(name = "博客实体对象")
     @TableField(exist = false)
     private Blog blog;
+
+    /**
+     * 回复评论
+     */
+    @ApiModelProperty(value = "回复评论")
+    @Excel(name = "回复评论")
+    @TableField(exist = false)
+    private List<Comment> replyComments;
 }
