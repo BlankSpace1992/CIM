@@ -10,6 +10,7 @@ import com.yjh.util.MarkdownUtils;
 import com.yjh.vo.BlogQuery;
 import com.yjh.web.blog.domain.Blog;
 import com.yjh.web.blog.domain.BlogTags;
+import com.yjh.web.blog.domain.Tag;
 import com.yjh.web.blog.mapper.BlogMapper;
 import com.yjh.web.blog.service.BlogTagService;
 import com.yjh.web.blog.service.IBlogService;
@@ -120,9 +121,14 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     }
 
     @Override
-    public Page<Blog> listBlogs(Pageable pageable, BlogQuery blog) {
+    public Page<Blog> listBlogs(Pageable pageable, BlogQuery blogQuery) {
         Page<Blog> page = PageHelper.startPage(pageable.getPageNumber(), pageable.getPageSize());
-        List<Blog> blogs = baseMapper.listBlogs(blog);
+        List<Blog> blogs = baseMapper.listBlogs(blogQuery);
+        // 根据blogId 获取tags
+        page.forEach(blog -> {
+            List<Tag> tags = blogTagService.listTags(blog.getId());
+            blog.setTags(tags);
+        });
         return page;
     }
 

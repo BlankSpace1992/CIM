@@ -42,8 +42,8 @@ mybatis-plus:
 
 logging:
   level:
-    root: error
-    com.lrm: error
+    root: info
+    com.lrm: info
   file: log/blog.log
 server:
   port: 8090
