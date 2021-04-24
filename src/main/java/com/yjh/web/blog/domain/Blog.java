@@ -167,9 +167,10 @@ public class Blog {
      */
     public void getTagList() {
         List<String> tagIdsList = new ArrayList<>();
+        StringBuilder temp = new StringBuilder();
         this.getTags().forEach(tag -> {
-            tagIdsList.add(String.valueOf(tag.getId()));
+            temp.append(tag.getId()).append(",");
         });
-        this.tagIds = tagIdsList.toString().replace("[", "").replace("]", "");
+        this.tagIds = temp.toString().substring(0,temp.toString().length()-1);
     }
 }
