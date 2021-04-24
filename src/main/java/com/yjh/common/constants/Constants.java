@@ -26,7 +26,7 @@ public class Constants {
     /**
      * 头像基础地址-尾部
      */
-    public static final String AVATAR_REQUEST_URL_END = "https://picsum.photos/id/";
+    public static final String AVATAR_REQUEST_URL_END = "/200";
 
     /**
      * IP基础地址

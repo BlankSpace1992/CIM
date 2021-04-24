@@ -38,7 +38,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         // 拼接头像地址
         comment.setAvatar(Constants.AVATAR_REQUEST_URL_HEAD + (new Random().nextInt(1000) + 1) + Constants.AVATAR_REQUEST_URL_END);
         comment.setCreateTime(new Date());
-        comment.setContent(result);
 
         comment.setBlogId(comment.getBlog().getId());
         comment.setCreateTime(new Date());
