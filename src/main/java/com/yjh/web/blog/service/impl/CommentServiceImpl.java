@@ -27,10 +27,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         LambdaQueryWrapper<Comment> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Comment::getDelFlag, Constants.DELETE_EXIST);
         wrapper.eq(Comment::getBlogId, blogId);
-        LambdaQueryWrapper<Comment> queryWrapper = wrapper.orderByDesc(Comment::getCreateTime);
-        List<Comment> comments = this.list(wrapper);
-        // 循环遍历 // TODO: 2021/4/20
-        return comments;
+        wrapper.orderByDesc(Comment::getParentCommentId);
+        return this.list(wrapper);
     }
 
     @Override
@@ -41,6 +39,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         comment.setAvatar(Constants.AVATAR_REQUEST_URL_HEAD + (new Random().nextInt(1000) + 1) + Constants.AVATAR_REQUEST_URL_END);
         comment.setCreateTime(new Date());
         comment.setContent(result);
+
+        comment.setBlogId(comment.getBlog().getId());
+        comment.setCreateTime(new Date());
         this.save(comment);
     }
 

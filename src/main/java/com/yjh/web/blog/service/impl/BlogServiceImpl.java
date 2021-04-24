@@ -100,7 +100,10 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Override
     public Blog getBlog(Long id) {
         // 需要判空--当前博客是否存在
-        return Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new NotFoundException("该博客不存在"));
+        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new NotFoundException("该博客不存在"));
+        List<Tag> tags = blogTagService.listTags(blog.getId());
+        blog.setTags(tags);
+        return blog;
     }
 
     @Override
