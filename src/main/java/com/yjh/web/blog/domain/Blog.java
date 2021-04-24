@@ -170,6 +170,6 @@ public class Blog {
         this.getTags().forEach(tag -> {
             tagIdsList.add(String.valueOf(tag.getId()));
         });
-        this.tagIds = tagIdsList.toString();
+        this.tagIds = tagIdsList.toString().replace("[", "").replace("]", "");
     }
 }
