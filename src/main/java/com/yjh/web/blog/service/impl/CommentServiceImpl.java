@@ -7,14 +7,11 @@ import com.yjh.util.PushWechatMessageUtil;
 import com.yjh.web.blog.domain.Comment;
 import com.yjh.web.blog.mapper.CommentMapper;
 import com.yjh.web.blog.service.ICommentService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author yujunhong
@@ -29,9 +26,13 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         LambdaQueryWrapper<Comment> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Comment::getDelFlag, Constants.DELETE_EXIST);
         wrapper.eq(Comment::getBlogId, blogId);
-        wrapper.orderByDesc(Comment::getParentCommentId);
+        wrapper.orderByAsc(Comment::getId);
         List<Comment> comments = this.list(wrapper);
-        return eachComment(comments);
+        // 根据父节点id进行分组
+        Map<Long, List<Comment>> listMap = comments.stream().collect(Collectors.groupingBy(Comment::getParentCommentId));
+        // 只留下getParentCommentId==-1的评论
+        List<Comment> commentList = comments.stream().filter(comment -> comment.getParentCommentId() == -1).collect(Collectors.toList());
+        return getCommentTree(commentList, listMap);
     }
 
     @Override
@@ -56,60 +57,44 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     }
 
     /**
-     * 循环每个顶级的评论节点
+     * 构造评论数
      *
-     * @param comments
-     * @return
+     * @param comments 全部评论集合
+     * @param listMap  以父评论id作为key的评论集合
+     * @author 余俊宏
+     * @date 2021/4/24
      */
-    private List<Comment> eachComment(List<Comment> comments) {
-        List<Comment> commentsView = new ArrayList<>();
+    private List<Comment> getCommentTree(List<Comment> comments, Map<Long, List<Comment>> listMap) {
+        // ParentCommentId 为-1的评论进行遍历
         for (Comment comment : comments) {
-            Comment c = new Comment();
-            BeanUtils.copyProperties(comment, c);
-            commentsView.add(c);
-        }
-        //合并评论的各层子代到第一级子代集合中
-        combineChildren(commentsView);
-        return commentsView;
-    }
-
-    /**
-     * @param comments root根节点，blog不为空的对象集合
-     * @return
-     */
-    private void combineChildren(List<Comment> comments) {
-
-        for (Comment comment : comments) {
-            List<Comment> replys1 = comment.getReplyComments();
-            for (Comment reply1 : replys1) {
-                //循环迭代，找出子代，存放在tempReplys中
-                recursively(reply1);
+            List<Comment> replyComments = comment.getReplyComments();
+            // 查找到该评论下的回复评论
+            if (listMap.containsKey(comment.getId())) {
+                // 统一放入同一个回复评论中
+                replyComments.addAll(listMap.get(comment.getId()));
+                // 循环遍历,查找回复评论下的回复评论
+                buildReplyTree(listMap.get(comment.getId()), replyComments, listMap, comment);
             }
-            //修改顶级节点的reply集合为迭代处理后的集合
-            comment.setReplyComments(tempReplys);
-            //清除临时存放区
-            tempReplys = new ArrayList<>();
         }
+        return comments;
     }
 
-    //存放迭代找出的所有子代的集合
-    private List<Comment> tempReplys = new ArrayList<>();
-
     /**
-     * 递归迭代，剥洋葱
+     * 循环遍历,查找回复评论下的回复评论
      *
-     * @param comment 被迭代的对象
-     * @return
+     * @param comments      子评论集合
+     * @param replyComments 获取评论集合
+     * @param listMap       以父评论id作为key的评论集合
+     * @param parentComment 父评论集合
+     * @author 余俊宏
+     * @date 2021/4/24
      */
-    private void recursively(Comment comment) {
-        tempReplys.add(comment);//顶节点添加到临时存放集合
-        if (comment.getReplyComments().size() > 0) {
-            List<Comment> replys = comment.getReplyComments();
-            for (Comment reply : replys) {
-                tempReplys.add(reply);
-                if (reply.getReplyComments().size() > 0) {
-                    recursively(reply);
-                }
+    private void buildReplyTree(List<Comment> comments, List<Comment> replyComments, Map<Long, List<Comment>> listMap, Comment parentComment) {
+        for (Comment comment : comments) {
+            comment.setParentCommentName(parentComment.getNickname());
+            if (listMap.containsKey(comment.getId())) {
+                replyComments.addAll(listMap.get(comment.getId()));
+                buildReplyTree(listMap.get(comment.getId()), replyComments, listMap, comment);
             }
         }
     }

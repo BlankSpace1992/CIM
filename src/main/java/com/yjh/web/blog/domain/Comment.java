@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -104,5 +105,13 @@ public class Comment {
     @ApiModelProperty(value = "回复评论")
     @Excel(name = "回复评论")
     @TableField(exist = false)
-    private List<Comment> replyComments;
+    private List<Comment> replyComments =new ArrayList<>();
+
+    /**
+     * 上一个回复的评论
+     */
+    @ApiModelProperty(value = "上一个回复的评论")
+    @Excel(name = "上一个回复的评论")
+    @TableField(exist = false)
+    private String parentCommentName;
 }
