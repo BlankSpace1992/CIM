@@ -2,8 +2,6 @@ package com.yjh.web.blog.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.yjh.common.constants.Constants;
-import com.yjh.util.HttpClient;
 import com.yjh.util.IPUtils;
 import com.yjh.web.blog.domain.Record;
 import com.yjh.web.blog.mapper.RecordMapper;
@@ -38,8 +36,8 @@ public class RecordServiceImpl extends ServiceImpl<RecordMapper, Record> impleme
             // 总的访问次数
             record.setTotalNumberOfVisits(1L);
             // 获取地址信息
-            String result = HttpClient.doGet(Constants.IP_REQUEST_URL_END + record.getIp());
-            record.setAddress(result.substring(result.indexOf(":") + 1, result.length() - 1));
+         /*   String result = HttpClient.doGet(Constants.IP_REQUEST_URL_END + record.getIp());
+            record.setAddress(result.substring(result.indexOf(":") + 1, result.length() - 1));*/
             this.save(record);
         } else {
             record.setLastVisitTime(new Date());
