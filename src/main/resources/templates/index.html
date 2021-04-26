@@ -8,184 +8,84 @@
   <link rel="stylesheet" href="../static/css/me.css" >
 </head>
 <body>
+烑烑APP隐私政策
 
-  <!--导航-->
-  <nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
-    <div class="ui container">
-      <div class="ui inverted secondary stackable menu">
-        <h2 class="ui teal header item">Blog</h2>
-        <a href="#" class=" m-item item m-mobile-hide"><i class="mini home icon"></i>首页</a>
-        <a href="#" class="m-item item m-mobile-hide"><i class="mini idea icon"></i>分类</a>
-        <a href="#" class="m-item item m-mobile-hide"><i class="mini tags icon"></i>标签</a>
-        <a href="#" class="m-item item m-mobile-hide"><i class="mini clone icon"></i>归档</a>
-        <a href="#" class="m-item item m-mobile-hide"><i class="mini info icon"></i>关于我</a>
-        <div class="right m-item item m-mobile-hide">
-          <div class="ui icon inverted transparent input m-margin-tb-tiny">
-            <input type="text" placeholder="搜索....">
-            <i class="search link icon"></i>
-          </div>
-        </div>
-      </div>
-    </div>
-    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
-      <i class="sidebar icon"></i>
-    </a>
-  </nav>
+烑烑尊重用户信息安全与隐私保护，秉承“用户具有自身价值知情权”的理念，增强您对信息管理的便捷性和信息及通信安全。
 
-  <!--中间内容-->
-  <div  class="m-container m-padded-tb-big animated fadeIn">
+我们的服务：
+1、安全可靠：我们通过合理有效的信息安全技术及管理流程，防止您的信息泄露、损毁、丢失，秉持善良尊重之心对用户信息安全做尽职处理。
 
-    <div class="ui container">
-      <div class="ui stackable grid">
-        <!--左边博客列表-->
-        <div class="eleven wide column">
+2、自主选择：我们为您提供便利的信息管理选项，以便您做出合适的选择，管理您的个人信息。
 
+3、保护通信秘密：我们严格遵照法律法规，保护您的通信秘密，为您提供安全的通信服务。
 
-          <!--左侧统计区域-->
-          <div class="ui top attached segment">
-            <div class="ui middle aligned two column grid">
-              <div class="column">
-                <h3 class="ui teal header">博客列表</h3>
-              </div>
-              <div class="right aligned column">
-                共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.total}"></h2> 篇
-              </div>
-            </div>
-          </div>
+4、合理必要：为了向您和其他用户提供更好的服务，我们仅收集必要的信息。
 
-          <!--左侧博客列表-->
-          <div class="ui attached  segment">
+5、清晰透明：我们努力使用简明易懂的表述，向您介绍隐私政策，以便您清晰地了解我们的信息处理方式。
 
-            <div class="ui padded vertical segment m-padded-tb-large" th:each="blog : ${page}">
-              <div class="ui middle aligned mobile reversed stackable grid" >
-                <div class="eleven wide column">
-                  <h3 class="ui header" ><a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black" th:text="${blog.title}">?</a></h3>
-                  <p  th:text="|${blog.description}......|"></p>
-                  <div class="ui grid">
-                    <div class="eleven wide column">
-                      <div class="ui mini horizontal link list">
-                        <div class="item">
-                          <h4 th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}"></h4>
-                        </div>
-                        <div class="item">
-                          <h4 th:text="${ '浏览:' + blog.views}"></h4>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="right aligned five wide column">
-                      <a href="#" target="_blank" class="ui teal basic label m-padded-tiny m-text-thin" th:text="${blog.type.name}"></a>
-                    </div>
-                  </div>
-                </div>
+本《隐私政策》主要向您说明：
+我们收集哪些信息；我们收集信息的用途；您所享有的权利。
 
-                <div class="five wide column">
-                  <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank">
-                    <img src="https://unsplash.it/800/450?image=1005" th:src="@{${blog.firstPicture}}" border="1" class="ui medium bordered  rounded image">
-                  </a>
-                </div>
+希望您仔细阅读《隐私政策》（以下简称“本政策”），详细了解我们对信息的收集、使用方式，以便您更好地了解我们的服务并作出适当的选择。
 
-              </div>
-            </div>
+若您使用烑烑服务，即表示您认同我们在本政策中所述内容。除另有约定外，本政策所用术语与《烑烑服务协议》中的术语具有相同的涵义。
 
-          </div>
+如您有问题，请联系我们。
 
-          <!--左侧底部分页区域-->
-          <div class="ui bottom attached segment" th:if="${page.pages}>1">
-            <div class="ui middle aligned two column grid">
-              <div class="column">
-                <a href="#" th:href="@{/(page=${page.pages}-1)}"  th:unless="${page.startRow}" class="ui mini teal basic button">上一页</a>
-              </div>
-              <div class="right aligned column">
-                <a href="#" th:href="@{/(page=${page.pages}+1)}"  th:unless="${page.endRow}" class="ui mini teal basic button">下一页</a>
-              </div>
-            </div>
-          </div>
+一、我们收集的信息
+我们根据合法、正当、必要的原则，仅收集实现产品功能所必要的信息。
+1.1您在使用我们服务时主动提供的信息
 
-        </div>
+a. 您在注册帐户时填写的信息。
 
-        <!--右侧区域-->
-        <div class="five wide column">
+例如，您在注册烑烑帐户时所填写的昵称、手机号码。
 
-          <!--分类-->
-          <div class="ui segments">
-            <div class="ui secondary segment">
-              <div class="ui two column grid">
-                <div class="column">
-                  <h4>分类</h4>
-                </div>
-                <div class="right aligned column">
-                  <a href="#" th:href="@{types/-1}" target="_blank"><h5>更多<i class="angle double right icon"></i></h5></a>
-                </div>
-              </div>
-            </div>
-            <div class="ui teal segment">
-              <div class="ui fluid vertical menu" >
-                <a href="#" th:href="@{/types/{id}(id=${type.id})}" target="_blank" class="item"  th:each="type : ${types}">
-                  <span th:text="${type.name}">学习日志</span>
-                  <div class="ui teal basic left pointing label"
-                       th:text="${#arrays.length(type.blogs)}"
-                  >13</div>
-                </a>
+b. 您在使用服务时上传的信息。
 
-              </div>
-            </div>
-          </div>
+例如，您在使用烑烑时，上传的头像、分享的照片。
 
-          <!--标签-->
-          <div class="ui segments m-margin-top-large">
-            <div class="ui secondary segment">
-              <div class="ui two column grid">
-                <div class="column">
-                  <h4>标签</h4>
-                </div>
-                <div class="right aligned column">
-                  <a href="#" th:href="@{tags/-1}" target="_blank"><h5>更多<i class="angle double right icon"></i></h5></a>
-                </div>
-              </div>
-            </div>
-            <div class="ui teal segment">
-              <a href="#" th:href="@{/tags/{id}(id=${tag.id})}" target="_blank" class="ui teal basic left pointing label m-margin-tb-tiny" th:each="tag : ${tags}">
-                <span th:text="${tag.name}">方法论</span> <div class="detail" th:text="${#arrays.length(tag.blogs)}">23</div>
-              </a>
+我们的部分服务可能需要您提供特定的个人敏感信息来实现特定功能。若您选择不提供该类信息，则可能无法正常使用服务中的特定功能，但不影响您使用服务中的其他功能。若您主动提供您的个人敏感信息，即表示您同意我们按本政策所述目的和方式来处理您的个人敏感信息。
 
-            </div>
-          </div>
+1.2
+我们在您使用服务时获取的信息
 
-          <!--最新推荐-->
-          <div class="ui segments m-margin-top-large">
-            <div class="ui secondary segment ">
-              <h4>最新推荐</h4>
-            </div>
-            <div class="ui segment" th:each="blog : ${recommendBlogs}">
-              <a href="#" th:href="@{/blog/{id}(id=${blog.id})}" target="_blank" class="m-black m-text-thin" th:text="${blog.title}">用户故事（User Story）</a>
-            </div>
-          </div>
+a. 日志信息。当您使用我们的服务时，我们可能会自动收集相关信息并存储为服务日志信息。
 
+(1) 设备信息。例如，设备型号、操作系统版本、唯一设备标识符、电池、信号强度等信息。
 
-        </div>
+(2) 软件信息。例如，软件的版本号、浏览器类型。为确保操作环境的安全或提供服务所需，我们会收集有关您使用的移动应用和其他软件的信息。
 
-      </div>
-    </div>
+(3) IP地址。
 
-  </div>
+(4) 服务日志信息。例如，您在使用我们服务时搜索、查看的信息、服务故障信息、引荐网址等信息。
 
-  <br>
-  <br>
-  <!--底部footer-->
-  <footer th:replace="_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+(5) 通讯日志信息。例如，您在使用我们服务时曾经通讯的账户、通讯时间和时长。
 
-  </footer>
-<!--/*/<th:block th:replace="_fragments :: script">/*/-->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-<!--/*/</th:block>/*/-->
+b. 位置信息。当您使用与位置有关的服务时，我们可能会记录您设备所在的位置信息，以便为您提供相关服务。
 
-  <script>
+(1) 在您使用服务时，我们可能会通过IP地址、GPS、WLAN（如 WiFi）或基站等途径获取您的地理位置信息；
 
-    $('.menu.toggle').click(function () {
-      $('.m-item').toggleClass('m-mobile-hide');
-    });
+(2) 您或其他用户在使用服务时提供的信息中可能包含您所在地例如您提供的帐号信息中可能包含的您所在地区信息，您或其他人共享的照片包含的地理标记信息；
 
-  </script>
+c.其他相关信息。为了帮助您更好地使用我们的产品或服务，我们会收集相关信息。例如，我们收集的好友列表、群列表信息。为确保您使用我们服务时能与您认识的人进行联系，如您选择开启导入通讯录功能，我们可能对您联系人的姓名和电话号码进行加密，并仅收集加密后的信息。
+
+1.3
+其他用户分享的信息中含有您的信息
+
+例如，其他用户发布的照片或分享的视频中可能包含您的信息。
+
+二、我们如何使用收集的信息
+我们严格遵守法律法规的规定及与用户的约定，将收集的信息用于以下用途。若我们超出以下用途使用您的信息，我们将再次向您进行说明，并征得您的同意。
+
+三、您分享的信息
+您可以通过我们的服务与您的好友、家人及其他用户分享您的相关信息。例如，您在烑烑人脉圈或烑吧中公开分享的文字和照片。请注意，这其中可能包含您的个人身份信息、个人财产信息等敏感信息。请您谨慎考虑披露您的相关个人敏感信息。
+
+您可通过我们服务中的隐私设置来控制您分享信息的范围，也可通过服务中的设置或我们提供的指引删除您公开分享的信息。但请您注意，这些信息仍可能由其他用户或不受我们控制的非关联第三方独立地保存。
+
+四、您如何管理自己的信息
+4.1您可以在使用我们服务的过程中，访问、修改和删除您提供的注册信息和其他个人信息，也可按照通知指引与我们联系。您访问、修改和删除个人信息的范围和方式将取决于您使用的具体服务。例如，若您在使用地理位置相关服务时，希望停止分享您的地理位置信息，您可通过手机定位关闭功能、软硬件服务商及通讯服务提供商的关闭方式停止分享，建议您仔细阅读相关指引。
+
+4.2我们将按照本政策所述，仅为实现我们产品或服务的功能，收集、使用您的信息。如您发现我们违反法律、行政法规的规定或者双方的约定收集、使用您的个人信息，您可以要求我们删除。如您发现我们收集、存储的您的个人信息有错误的，您也可以要求我们更正。请通过本政策列明的联系方式
+
 </body>
 </html>
