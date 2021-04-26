@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @date 2021/4/21 15:13
  */
 @Controller
-public class IndexController {
+public class IndexController{
 
 
     @GetMapping("/")
