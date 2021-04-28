@@ -41,6 +41,8 @@ public class IndexController extends BaseController {
     @Autowired
     private IWebsiteInfoService websiteInfoService;
 
+
+
     @GetMapping("/")
     public String index(@PageableDefault(size = 10, sort = {"createTime"}, direction = Sort.Direction.DESC) Pageable pageable,
                         Model model,

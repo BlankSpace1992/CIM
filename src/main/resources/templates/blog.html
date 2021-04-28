@@ -92,7 +92,7 @@
         </div>
       </div>
     </div>
-    <div  class="ui bottom attached segment" th:if="${blog.commentabled eq '1'}">
+    <div  class="ui bottom attached segment" th:if="${blog.commentabled eq '1' && session.loginUser!=null}">
       <!--留言区域列表-->
       <div id="comment-container"  class="ui teal segment">
         <div th:fragment="commentList">
