@@ -46,6 +46,6 @@ logging:
     com.lrm: error
   file: log/blog.log
 server:
-  port: 8090
+  port: 8092
 
 
