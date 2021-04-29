@@ -1,4 +1,4 @@
-package com.yjh.common.interfaces;
+package com.yjh.common.anotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

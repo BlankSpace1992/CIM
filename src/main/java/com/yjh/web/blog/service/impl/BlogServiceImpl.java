@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.yjh.NotFoundException;
 import com.yjh.common.constants.Constants;
+import com.yjh.common.exception.CommonErrorException;
 import com.yjh.util.MarkdownUtils;
 import com.yjh.vo.BlogQuery;
 import com.yjh.web.blog.domain.Blog;
@@ -92,7 +92,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Override
     public void deleteBlog(Long id) {
         // TODO: 2021/4/20  需要删除评论目前未删除
-        Blog blog = Optional.ofNullable(this.getById(id)).orElseThrow(() -> new NotFoundException("该博客不存在,删除失败"));
+        Blog blog = Optional.ofNullable(this.getById(id)).orElseThrow(() -> new CommonErrorException("该博客不存在,删除失败"));
         blog.setDelFlag(Constants.DELETE_NOT_EXIST);
         this.updateById(blog);
     }
@@ -100,7 +100,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Override
     public Blog getBlog(Long id) {
         // 需要判空--当前博客是否存在
-        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new NotFoundException("该博客不存在"));
+        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new CommonErrorException("该博客不存在"));
         List<Tag> tags = blogTagService.listTags(blog.getId());
         blog.setTags(tags);
         return blog;
@@ -110,7 +110,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Transactional(rollbackFor = Exception.class)
     public Blog getAndConvert(Long id) {
         // 查询博客信息
-        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new NotFoundException("该博客不存在"));
+        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new CommonErrorException("该博客不存在"));
         // 浏览数加1
         blog.setViews(blog.getViews() + 1);
         this.updateById(blog);

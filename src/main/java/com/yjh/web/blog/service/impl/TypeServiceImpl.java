@@ -3,7 +3,7 @@ package com.yjh.web.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
-import com.yjh.NotFoundException;
+import com.yjh.common.exception.CommonErrorException;
 import com.yjh.vo.BlogQuery;
 import com.yjh.web.blog.domain.Blog;
 import com.yjh.web.blog.domain.Type;
@@ -31,7 +31,7 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
         LambdaQueryWrapper<Type> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Type::getName, type.getName());
         if (this.getOne(wrapper) != null) {
-            throw new NotFoundException("分类名称已经存在,不允许再添加");
+            throw new CommonErrorException("分类名称已经存在,不允许再添加");
         }
         this.save(type);
     }
@@ -69,10 +69,10 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type> implements IT
         // 查询当前分类是否存在
         Type typeOld = this.getById(type.getId());
         if (typeOld == null) {
-            throw new NotFoundException("分类不存在,不允许更新");
+            throw new CommonErrorException("分类不存在,不允许更新");
         }
         if (type.getName().equals(typeOld.getName())) {
-            throw new NotFoundException("分类名称已经存在,不允许更新");
+            throw new CommonErrorException("分类名称已经存在,不允许更新");
         }
         this.updateById(type);
     }

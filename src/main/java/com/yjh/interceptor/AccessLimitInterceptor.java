@@ -1,6 +1,6 @@
 package com.yjh.interceptor;
 
-import com.yjh.common.interfaces.AccessLimit;
+import com.yjh.common.anotation.AccessLimit;
 import com.yjh.util.RedisUtil;
 import com.yjh.util.StringUtils;
 import com.yjh.web.blog.domain.User;

@@ -3,7 +3,7 @@ package com.yjh.web.blog.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageHelper;
-import com.yjh.NotFoundException;
+import com.yjh.common.exception.CommonErrorException;
 import com.yjh.web.blog.domain.Blog;
 import com.yjh.web.blog.domain.Tag;
 import com.yjh.web.blog.mapper.TagMapper;
@@ -31,7 +31,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         LambdaQueryWrapper<Tag> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(Tag::getName, tag.getName());
         if (this.getOne(wrapper) != null) {
-            throw new NotFoundException("标签名称已经存在,不允许再添加");
+            throw new CommonErrorException("标签名称已经存在,不允许再添加");
         }
         this.save(tag);
     }
@@ -74,10 +74,10 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
         // 查询该标签是否存在
         Tag tagOld = this.getById(tag.getId());
         if (tagOld == null) {
-            throw new NotFoundException("标签不存在,不允许更新");
+            throw new CommonErrorException("标签不存在,不允许更新");
         }
         if (tag.getName().equals(tagOld.getName())) {
-            throw new NotFoundException("标签名称已经存在,不允许更新");
+            throw new CommonErrorException("标签名称已经存在,不允许更新");
         }
         this.updateById(tag);
     }
