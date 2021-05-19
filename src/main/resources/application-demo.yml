@@ -66,6 +66,24 @@ logging:
   file: log/blog.log
 server:
   port: 8090
-
+# 第三方系统认证
+justauth:
+  enabled: true
+  type:
+    BAIDU:
+      client-id: GS5FtsCXoqbTU9HLEksxOewG
+      client-secret: WwXBPzlmeFUoXSmQtGnao68vvg6UM0uG
+      redirect-uri: http://127.0.0.1:8090/auth/baidu/callback
+    QQ:
+      client-id: 7232c0e9c66a1398920b
+      client-secret: 85b4b6f61c6300d914d9dea81fb3b513acdf9427
+      redirect-uri: http://127.0.0.1:8090/auth/github/callback
+  cache:
+    # 缓存类型（default-使用JustAuth内置的缓存、redis-使用Redis缓存、custom-自定义缓存）
+    type: redis
+    # 缓存前缀，目前只对redis缓存生效，默认 JUSTAUTH::STATE::
+    prefix: 'JUATAUTH::STATE::'
+    # 超时时长，目前只对redis缓存生效，默认3分钟
+    timeout: 3m
 
 

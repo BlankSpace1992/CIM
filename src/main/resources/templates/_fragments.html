@@ -57,26 +57,28 @@
                     </div>
                 </form>
             </div>
-            <div class="right m-item m-mobile-hide menu" th:if="${session.loginUser!=null}">
+            <div class="right m-item m-mobile-hide menu" th:if="${session.justAuthUser!=null}">
                 <div class="ui dropdown  item">
                     <div class="text">
                         <img class="ui avatar image"
-                             th:src="@{${session.loginUser.avatar}}">
-                        <span th:text="${session.loginUser.nickname}" id="nickname">杜少雄</span>
+                             th:src="@{${session.justAuthUser.avatar}}">
+                        <span th:text="${session.justAuthUser.nickname}" id="nickname">杜少雄</span>
                     </div>
                 </div>
             </div>
-            <div class="right m-item m-mobile-hide menu" th:if="${session.loginUser==null}">
+            <div class="right m-item m-mobile-hide menu" th:if="${session.justAuthUser==null}">
                 <div class="ui dropdown item">
                     <div class="text">
                         <a href="#" th:href="@{/login}" class="item">登录</a>
                     </div>
                 </div>
             </div>
-            <div class="right m-item m-mobile-hide menu" th:if="${session.loginUser!=null}">
+            <div class="right m-item m-mobile-hide menu" th:if="${session.justAuthUser!=null}">
                 <div class="ui dropdown  item">
                     <div class="text">
-                        <a href="#" th:href="@{/login/logout}" class="item">注销</a>
+                        <a href="#"
+                           th:href="@{/auth/revoke}"
+                           class="item">注销</a>
                     </div>
                 </div>
             </div>

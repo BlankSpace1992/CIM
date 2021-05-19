@@ -18,9 +18,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RedisUtil {
     @Autowired
-    private final RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<Object, Object> redisTemplate;
 
-    public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
+    public RedisUtil(RedisTemplate<Object, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 
@@ -673,7 +673,7 @@ public class RedisUtil {
      */
     public List<Object> rangeList(String listKey, long start, long end) {
         //绑定操作
-        BoundListOperations<String, Object> boundValueOperations = redisTemplate.boundListOps(listKey);
+        BoundListOperations<Object, Object> boundValueOperations = redisTemplate.boundListOps(listKey);
         //查询数据
         return boundValueOperations.range(start, end);
     }
@@ -685,7 +685,7 @@ public class RedisUtil {
      */
     public Object rightPop(String listKey) {
         //绑定操作
-        BoundListOperations<String, Object> boundValueOperations = redisTemplate.boundListOps(listKey);
+        BoundListOperations<Object, Object> boundValueOperations = redisTemplate.boundListOps(listKey);
         return boundValueOperations.rightPop();
     }
 

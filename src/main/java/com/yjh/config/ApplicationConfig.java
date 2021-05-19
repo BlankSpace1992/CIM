@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
  * @date 2021/4/21 15:33
  */
 @Configuration
-@MapperScan("com.yjh.web.blog.mapper")
+@MapperScan({"com.yjh.web.blog.mapper","com.yjh.web.just_auth.mapper"})
 public class ApplicationConfig {
 }
