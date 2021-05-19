@@ -49,6 +49,13 @@ public class Blog {
     @ApiModelProperty(value = "是否评论")
     @Excel(name = "是否评论")
     private String commentabled;
+
+    /**
+     * 是否推广
+     */
+    @ApiModelProperty(value = "是否推广")
+    @Excel(name = "是否推广")
+    private String promote;
     /**
      * 内容
      */

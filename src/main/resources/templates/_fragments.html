@@ -26,7 +26,9 @@
     <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}">
     <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
-
+    <link rel="stylesheet" href="./css/dark-theme.min.css">
+    <link rel="stylesheet" href="./css/light-theme.min.css">
+    <link rel="stylesheet" src="./css/colored-theme.min.css">
 </head>
 
 <body>
@@ -60,7 +62,7 @@
                     <div class="text">
                         <img class="ui avatar image"
                              th:src="@{${session.loginUser.avatar}}">
-                        <span th:text="${session.loginUser.nickname}">杜少雄</span>
+                        <span th:text="${session.loginUser.nickname}" id="nickname">杜少雄</span>
                     </div>
                 </div>
             </div>

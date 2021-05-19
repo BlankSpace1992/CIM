@@ -1,5 +1,6 @@
 package com.yjh.web.blog.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.Page;
@@ -11,11 +12,13 @@ import com.yjh.vo.BlogQuery;
 import com.yjh.web.blog.domain.Blog;
 import com.yjh.web.blog.domain.BlogTags;
 import com.yjh.web.blog.domain.Tag;
+import com.yjh.web.blog.domain.WebSocketMessage;
 import com.yjh.web.blog.mapper.BlogMapper;
 import com.yjh.web.blog.service.BlogTagService;
 import com.yjh.web.blog.service.IBlogService;
 import com.yjh.web.blog.service.ITagService;
 import com.yjh.web.blog.service.IUserService;
+import com.yjh.web.websocket.WebSocketServer;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -61,6 +64,15 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
             blogTagsList.add(blogTags);
         }
         blogTagService.saveBatch(blogTagsList);
+        // 选择了推广则会推广
+        if (blog.getPromote().equals("1")) {
+            // 推送给所有在线用户
+            WebSocketMessage webSocketMessage = new WebSocketMessage();
+            webSocketMessage.setUserName(blog.getUser().getNickname());
+            webSocketMessage.setTitle(blog.getTitle());
+            webSocketMessage.setBlogId(blog.getId());
+            WebSocketServer.groupSendInfo(JSON.toJSONString(webSocketMessage));
+        }
     }
 
     @Override
@@ -100,7 +112,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Override
     public Blog getBlog(Long id) {
         // 需要判空--当前博客是否存在
-        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new CommonErrorException("该博客不存在"));
+        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new CommonErrorException(
+                "该博客不存在"));
         List<Tag> tags = blogTagService.listTags(blog.getId());
         blog.setTags(tags);
         return blog;
@@ -110,7 +123,8 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog> implements IB
     @Transactional(rollbackFor = Exception.class)
     public Blog getAndConvert(Long id) {
         // 查询博客信息
-        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new CommonErrorException("该博客不存在"));
+        Blog blog = Optional.ofNullable(baseMapper.getBlogById(id)).orElseThrow(() -> new CommonErrorException(
+                "该博客不存在"));
         // 浏览数加1
         blog.setViews(blog.getViews() + 1);
         this.updateById(blog);
