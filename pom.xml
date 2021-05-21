@@ -43,13 +43,16 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
             <artifactId>commonmark</artifactId>
             <version>0.10.0</version>
         </dependency>
-
+        <!--邮件模块依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>com.atlassian.commonmark</groupId>
@@ -193,6 +196,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <!-- html文件转换为markdown-->
         <dependency>
             <groupId>com.kotcrab.remark</groupId>
             <artifactId>remark</artifactId>
