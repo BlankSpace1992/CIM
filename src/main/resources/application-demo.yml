@@ -43,7 +43,7 @@ spring:
     timeout: 30000
   mail:
     host: smtp.qq.com
-    username: 余俊宏
+    username: 459318144@qq.com
     password: qpssngqldvlbbhbc
     protocol: smtp
     port: 25
